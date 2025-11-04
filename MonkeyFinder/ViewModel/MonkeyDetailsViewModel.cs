@@ -1,6 +1,32 @@
 ﻿namespace MonkeyFinder.ViewModel;
 
-public class MonkeyDetailsViewModel
+[QueryProperty(nameof(Monkey), "Monkey")]
+public partial class MonkeyDetailsViewModel : BaseViewModel
 {
+    private IMap map;
+    public MonkeyDetailsViewModel(IMap map)
+    {
+        this.map = map;
+    }
     
+    [ObservableProperty]
+    private Monkey monkey;
+
+    [RelayCommand]
+    async Task OpenMap()
+    {
+        try
+        {
+            await map.OpenAsync(Monkey.Latitude, Monkey.Longitude, new MapLaunchOptions
+            {
+                Name = Monkey.Name,
+                NavigationMode = NavigationMode.None
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Unable to launch maps: {ex.Message}");
+            await Shell.Current.DisplayAlert("Error!", $"Unable to open map: {ex.Message}", "OK");
+        }
+    }
 }

@@ -9,8 +9,8 @@ public class MonkeyService
         httpClient = new HttpClient();
     }
     
-    private List<Monkey> monkeyList = new();
-    public async Task<List<Monkey>> GetMonkeys()
+    private List<Monkey>? monkeyList = new();
+    public async Task<List<Monkey>?> GetMonkeys()
     {
         if(monkeyList?.Count > 0)
             return monkeyList;

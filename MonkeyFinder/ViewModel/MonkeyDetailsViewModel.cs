@@ -10,14 +10,14 @@ public partial class MonkeyDetailsViewModel : BaseViewModel
     }
     
     [ObservableProperty]
-    private Monkey monkey;
+    private Monkey? monkey;
 
     [RelayCommand]
     async Task OpenMap()
     {
         try
         {
-            await map.OpenAsync(Monkey.Latitude, Monkey.Longitude, new MapLaunchOptions
+            await map.OpenAsync(Monkey!.Latitude, Monkey!.Longitude, new MapLaunchOptions
             {
                 Name = Monkey.Name,
                 NavigationMode = NavigationMode.None
@@ -26,7 +26,7 @@ public partial class MonkeyDetailsViewModel : BaseViewModel
         catch (Exception ex)
         {
             Debug.WriteLine($"Unable to launch maps: {ex.Message}");
-            await Shell.Current.DisplayAlert("Error!", $"Unable to open map: {ex.Message}", "OK");
+            await Shell.Current.DisplayAlertAsync("Error!", $"Unable to open map: {ex.Message}", "OK");
         }
     }
 }

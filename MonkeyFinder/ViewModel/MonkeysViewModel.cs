@@ -44,13 +44,13 @@ public partial class MonkeysViewModel : BaseViewModel
             if (first is null)
                 return;
 
-            await Shell.Current.DisplayAlert("Closest Monkey",
+            await Shell.Current.DisplayAlertAsync("Closest Monkey",
                 $"{first.Name} in {first.Location}", "OK");
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!", $"Unable to get closest monkey: {ex.Message}", "OK");
+            await Shell.Current.DisplayAlertAsync("Error!", $"Unable to get closest monkey: {ex.Message}", "OK");
         }
     }
 
@@ -76,7 +76,7 @@ public partial class MonkeysViewModel : BaseViewModel
         {
             if (connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                await Shell.Current.DisplayAlert("Error", "No Internet Connection", "OK");
+                await Shell.Current.DisplayAlertAsync("Error", "No Internet Connection", "OK");
                 return;
             }
             
@@ -86,13 +86,13 @@ public partial class MonkeysViewModel : BaseViewModel
             if(Monkeys.Count != 0)
                 Monkeys.Clear();
             
-            foreach(var monkey in monkeys)
+            foreach(var monkey in monkeys!)
                 Monkeys.Add(monkey);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.DisplayAlert("Error!", $"Unable to get monkeys: {ex.Message}", "OK");
+            await Shell.Current.DisplayAlertAsync("Error!", $"Unable to get monkeys: {ex.Message}", "OK");
         }
         finally
         {
